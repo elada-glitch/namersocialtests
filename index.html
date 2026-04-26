@@ -628,11 +628,25 @@
     .contact {
       color: #fff;
       position: relative;
-      overflow: hidden;
+      overflow: visible;
       background:
         radial-gradient(circle at 82% 18%, rgba(200,255,61,.22), transparent 26%),
         radial-gradient(circle at 18% 84%, rgba(24,200,216,.20), transparent 28%),
         #101014;
+    }
+
+    .contact::before {
+      content: "";
+      position: absolute;
+      width: clamp(280px, 30vw, 470px);
+      aspect-ratio: 1536 / 1024;
+      left: 50%;
+      top: calc(-1 * clamp(120px, 10.2vw, 160px));
+      transform: translateX(-50%);
+      background: url("assets/namer-retro-call-divider.png") center / contain no-repeat;
+      filter: drop-shadow(10px 16px 0 rgba(0,0,0,.22));
+      pointer-events: none;
+      z-index: 3;
     }
 
     .contact-grid {
@@ -805,6 +819,10 @@
         top: -52px;
         opacity: .9;
       }
+      .contact::before {
+        width: 280px;
+        top: -104px;
+      }
     }
 
     @media (max-width: 620px) {
@@ -827,6 +845,9 @@
       .hero-content { padding-bottom: 120px; }
       .bite-strip { transform: none; }
       .pricing-peek {
+        display: none;
+      }
+      .contact::before {
         display: none;
       }
     }
