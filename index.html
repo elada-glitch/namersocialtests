@@ -128,7 +128,7 @@
       inset: 0;
       background:
         linear-gradient(270deg, rgba(10, 7, 14, .94) 0%, rgba(20, 7, 18, .72) 42%, rgba(20, 7, 18, .08) 100%),
-        url("assets/hero-social-brand.png") center / cover no-repeat;
+        url("assets/hero-namer-leopard.png") center / cover no-repeat;
       z-index: -2;
     }
 
@@ -641,10 +641,10 @@
       width: clamp(280px, 30vw, 470px);
       aspect-ratio: 1536 / 1024;
       left: 50%;
-      top: calc(-1 * clamp(120px, 10.2vw, 160px));
+      top: calc(-1 * clamp(142px, 11.8vw, 186px));
       transform: translateX(-50%);
       background: url("assets/namer-retro-call-divider.png") center / contain no-repeat;
-      filter: drop-shadow(10px 16px 0 rgba(0,0,0,.22));
+      filter: drop-shadow(6px 8px 0 rgba(0,0,0,.18));
       pointer-events: none;
       z-index: 3;
     }
@@ -802,7 +802,7 @@
       .hero::before {
         background:
           linear-gradient(180deg, rgba(10, 7, 14, .94) 0%, rgba(20, 7, 18, .78) 48%, rgba(20, 7, 18, .28) 100%),
-          url("assets/hero-social-brand.png") center / cover no-repeat;
+          url("assets/hero-namer-leopard.png") center / cover no-repeat;
       }
       .services-grid,
       .pricing-grid,
@@ -821,7 +821,7 @@
       }
       .contact::before {
         width: 280px;
-        top: -104px;
+        top: -126px;
       }
     }
 
@@ -1089,7 +1089,7 @@
               <li>פרסום בפייסבוק ואינסטגרם</li>
               <li>תמיכה במייל, וואטסאפ וטלפון</li>
             </ul>
-            <a class="btn" href="#contact">רוצה Large</a>
+            <a class="btn" href="#contact">שים לי בלאפה</a>
           </article>
         </div>
         <p class="vat">* המחירים אינם כוללים מע"מ</p>
@@ -1103,26 +1103,26 @@
           <p>השאירו פרטים ונחזור עם שיחת ייעוץ קצרה: מה כבר קיים, איפה הפיד נרדם, ואיך נותנים לו בוסט שנראה כמו מותג אמיתי.</p>
           <p><strong>תל אביב, ישראל</strong><br>hello@namersocial.co.il<br>שירות לקוחות בווצאפ</p>
         </div>
-        <form class="contact-form" action="#" method="post">
+        <form class="contact-form" action="https://cal.com/noa-gal-xmjpvx/15min" method="get">
           <label>
             שם מלא
-            <input type="text" name="full-name" autocomplete="name" placeholder="שם מלא">
+            <input type="text" name="full-name" autocomplete="name" placeholder="שם מלא" required>
           </label>
           <label>
             אימייל
-            <input type="email" name="email" autocomplete="email" placeholder="name@example.com">
+            <input type="email" name="email" autocomplete="email" placeholder="name@example.com" required>
           </label>
           <label>
             טלפון
-            <input type="tel" name="phone" autocomplete="tel" placeholder="050-0000000">
+            <input type="tel" name="phone" autocomplete="tel" placeholder="050-0000000" required>
           </label>
           <label>
             שם העסק
-            <input type="text" name="business" placeholder="שם העסק">
+            <input type="text" name="business" placeholder="שם העסק" required>
           </label>
           <label class="full">
             מה תרצו לקדם?
-            <textarea name="message" placeholder="ספרו בכמה מילים על העסק והעמודים שלכם"></textarea>
+            <textarea name="message" placeholder="ספרו בכמה מילים על העסק והעמודים שלכם" required></textarea>
           </label>
           <div class="form-actions">
             <button class="btn btn-primary" type="submit">שליחה</button>
