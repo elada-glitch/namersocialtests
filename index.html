@@ -539,18 +539,36 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 18px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .pricing-peek {
+      position: absolute;
+      width: clamp(190px, 18vw, 310px);
+      left: 50%;
+      top: calc(-1 * clamp(64px, 6vw, 92px));
+      z-index: 3;
+      pointer-events: none;
+      filter: drop-shadow(10px 16px 0 rgba(16,16,20,.16));
+      transform: translateX(-50%);
     }
 
     .price-card {
       padding: 28px;
       position: relative;
       overflow: hidden;
+      animation: elegantCardFloat 9s ease-in-out infinite;
+      will-change: transform;
     }
+
+    .price-card:nth-child(2) { animation-delay: -2s; }
+    .price-card:nth-child(3) { animation-delay: -4s; }
 
     .price-card.featured {
       border: 2px solid var(--ink);
       box-shadow: 9px 9px 0 var(--ink);
-      transform: rotate(-1.2deg);
+      animation-name: elegantFeaturedFloat;
     }
 
     .badge {
@@ -576,7 +594,13 @@
       font-size: 2.8rem;
       line-height: 1;
       font-weight: 1000;
+      display: inline-block;
+      animation: priceLift 6.5s ease-in-out infinite;
+      will-change: transform;
     }
+
+    .price-card:nth-child(2) .price { animation-delay: -1.6s; }
+    .price-card:nth-child(3) .price { animation-delay: -3s; }
 
     .price small {
       font-size: 1rem;
@@ -611,24 +635,13 @@
         #101014;
     }
 
-    .contact::after {
-      content: "";
-      position: absolute;
-      width: clamp(190px, 28vw, 360px);
-      height: clamp(190px, 28vw, 360px);
-      inset-inline-start: -70px;
-      bottom: -110px;
-      background: url("assets/namer-mascot.png") center / contain no-repeat;
-      opacity: .22;
-      animation: slowSpin 24s linear infinite;
-      pointer-events: none;
-    }
-
     .contact-grid {
       display: grid;
       grid-template-columns: .9fr 1.1fr;
       gap: 40px;
       align-items: start;
+      position: relative;
+      z-index: 4;
     }
 
     .contact h2 { color: #fff; }
@@ -746,6 +759,21 @@
       to { transform: translateX(-25%); }
     }
 
+    @keyframes elegantCardFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+
+    @keyframes elegantFeaturedFloat {
+      0%, 100% { transform: translateY(0) rotate(-1.2deg); }
+      50% { transform: translateY(-9px) rotate(-1.2deg); }
+    }
+
+    @keyframes priceLift {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: .01ms !important;
@@ -772,6 +800,11 @@
       .section-head { display: grid; }
       .mascot-hero { width: 170px; left: 12px; bottom: 20px; opacity: .86; }
       .mascot-ghost { display: none; }
+      .pricing-peek {
+        width: 150px;
+        top: -52px;
+        opacity: .9;
+      }
     }
 
     @media (max-width: 620px) {
@@ -793,6 +826,9 @@
       .hero-stat { width: 100%; padding-inline: 0 14px; }
       .hero-content { padding-bottom: 120px; }
       .bite-strip { transform: none; }
+      .pricing-peek {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -994,6 +1030,7 @@
     </section>
 
     <section class="section" id="pricing">
+      <img class="pricing-peek" src="assets/namer-pricing-peek.png" alt="">
       <div class="wrap">
         <div class="section-head">
           <h2>חבילות בלי בלבול</h2>
