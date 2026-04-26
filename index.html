@@ -153,6 +153,7 @@
     }
 
     .ticker-track {
+      --ticker-speed: 24s;
       width: max-content;
       display: flex;
       padding: 11px 0;
@@ -161,14 +162,17 @@
       font-weight: 1000;
       white-space: nowrap;
       direction: ltr;
-      animation: ticker 22s linear infinite;
+      will-change: transform;
+      animation: ticker var(--ticker-speed) linear infinite;
     }
 
     .ticker-segment {
       display: flex;
       flex: 0 0 auto;
       gap: 24px;
-      padding-inline: 12px;
+      min-width: 100vw;
+      padding-inline: 24px;
+      justify-content: space-around;
     }
 
     .ticker-track span {
@@ -294,9 +298,9 @@
     }
 
     .bite-strip .ticker-track {
+      --ticker-speed: 18s;
       color: #101014;
       padding: 0;
-      animation-duration: 18s;
     }
 
     .bite-strip .ticker-track span::before {
@@ -818,6 +822,8 @@
             <span>AI + קופי + עיצוב</span>
             <span>מותג שלא נעלם בפיד</span>
             <span>קופי חד</span>
+            <span>סושיאל עם שיניים</span>
+            <span>פיד שלא נרדם</span>
           </div>
           <div class="ticker-segment">
             <span>סושיאל שלא מבקש רשות</span>
@@ -826,6 +832,8 @@
             <span>AI + קופי + עיצוב</span>
             <span>מותג שלא נעלם בפיד</span>
             <span>קופי חד</span>
+            <span>סושיאל עם שיניים</span>
+            <span>פיד שלא נרדם</span>
           </div>
         </div>
       </div>
@@ -854,6 +862,8 @@
           <span>רילז שמזיזים אצבעות</span>
           <span>סושיאל עם שיניים</span>
           <span>לא עוד פוסט גנרי</span>
+          <span>קריאייטיב שמסתובב בראש</span>
+          <span>פוסטים עם אופי</span>
         </div>
         <div class="ticker-segment">
           <span>מותג שלא נעלם בפיד</span>
@@ -862,6 +872,8 @@
           <span>רילז שמזיזים אצבעות</span>
           <span>סושיאל עם שיניים</span>
           <span>לא עוד פוסט גנרי</span>
+          <span>קריאייטיב שמסתובב בראש</span>
+          <span>פוסטים עם אופי</span>
         </div>
       </div>
     </section>
