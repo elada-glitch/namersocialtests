@@ -1,0 +1,1102 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>namer social | סושיאל עם שיניים</title>
+  <meta name="description" content="עמוד נחיתה למותג סושיאל: ניהול תוכן, פוסטים, וידאו קצר וחבילות חודשיות לעסקים.">
+  <style>
+    :root {
+      --ink: #101014;
+      --muted: #62616c;
+      --paper: #ffffff;
+      --soft: #f4f2f7;
+      --line: #e4e0ea;
+      --pink: #e11583;
+      --pink-2: #ff4fb3;
+      --cyan: #18c8d8;
+      --lime: #c8ff3d;
+      --yellow: #ffd447;
+      --violet: #5524d4;
+      --shadow: 0 22px 60px rgba(16, 16, 20, .16);
+      --radius: 8px;
+      font-family: "Assistant", "Rubik", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-size: 16px;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, .86);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(233, 232, 239, .78);
+    }
+
+    .nav {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 76px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: 0;
+      font-size: 1.25rem;
+    }
+
+    .brand-mark {
+      width: 54px;
+      height: 54px;
+      object-fit: contain;
+      filter: drop-shadow(7px 7px 0 #101014);
+      animation: mascotWobble 6s ease-in-out infinite;
+      flex: 0 0 auto;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-weight: 750;
+      color: #202027;
+    }
+
+    .nav-links a { white-space: nowrap; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 22px;
+      border-radius: var(--radius);
+      border: 2px solid #101014;
+      background: var(--paper);
+      color: var(--ink);
+      font-weight: 900;
+      box-shadow: 5px 5px 0 #101014;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translate(3px, 3px);
+      box-shadow: 2px 2px 0 #101014;
+    }
+
+    .btn-primary {
+      border-color: var(--pink);
+      background: var(--pink);
+      color: #fff;
+      box-shadow: 5px 5px 0 #101014;
+    }
+
+    .hero {
+      min-height: 560px;
+      color: #fff;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background: #120915;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(270deg, rgba(10, 7, 14, .94) 0%, rgba(20, 7, 18, .72) 42%, rgba(20, 7, 18, .08) 100%);
+      z-index: -2;
+    }
+
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -3;
+      opacity: .92;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset-inline-start: 0;
+      inset-block: auto 0;
+      height: 12px;
+      background: linear-gradient(90deg, var(--pink), var(--cyan), var(--lime), var(--yellow));
+      z-index: -1;
+    }
+
+    .hero-kicker {
+      position: absolute;
+      inset-inline: 0;
+      top: 0;
+      overflow: hidden;
+      direction: ltr;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      background: rgba(16,16,20,.32);
+      backdrop-filter: blur(10px);
+    }
+
+    .ticker-track {
+      --ticker-speed: 24s;
+      width: max-content;
+      display: flex;
+      margin-left: 0;
+      margin-right: auto;
+      padding: 11px 0;
+      color: #fff;
+      font-size: .9rem;
+      font-weight: 1000;
+      white-space: nowrap;
+      direction: ltr;
+      will-change: transform;
+      animation: ticker var(--ticker-speed) linear infinite;
+    }
+
+    .ticker-segment {
+      display: flex;
+      flex: 0 0 auto;
+      gap: 24px;
+      padding-inline: 12px;
+    }
+
+    .ticker-track span {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      direction: rtl;
+    }
+
+    .ticker-track span::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--lime);
+      box-shadow: 0 0 18px var(--lime);
+    }
+
+    .hero-inner {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 560px;
+      margin: 0 auto;
+      display: grid;
+      align-items: center;
+      padding: 98px 0 86px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .floating-mascot {
+      position: absolute;
+      z-index: 1;
+      pointer-events: none;
+      user-select: none;
+      object-fit: contain;
+      filter: drop-shadow(15px 20px 0 rgba(0,0,0,.52));
+    }
+
+    .mascot-hero {
+      width: clamp(170px, 25vw, 330px);
+      left: min(7vw, 86px);
+      bottom: 34px;
+      animation: orbitSpin 13s linear infinite;
+    }
+
+    .mascot-ghost {
+      width: clamp(95px, 13vw, 160px);
+      right: min(4vw, 54px);
+      top: 92px;
+      opacity: .78;
+      animation: rudeFloat 8s ease-in-out infinite;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 18px;
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 36px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--lime);
+      box-shadow: -16px 0 0 var(--cyan), -32px 0 0 var(--pink);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 720px;
+      margin-bottom: 18px;
+      font-size: clamp(3.35rem, 8.5vw, 7.2rem);
+      line-height: .86;
+      letter-spacing: 0;
+      font-weight: 1000;
+      text-transform: uppercase;
+      text-shadow: 7px 7px 0 rgba(225, 21, 131, .62);
+    }
+
+    .hero-copy {
+      max-width: 590px;
+      margin-bottom: 32px;
+      color: rgba(255, 255, 255, .88);
+      font-size: clamp(1.15rem, 2vw, 1.55rem);
+      line-height: 1.22;
+      font-weight: 650;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .hero-stat {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+      padding: 0 16px;
+      border-inline-start: 4px solid var(--cyan);
+      color: rgba(255,255,255,.88);
+      font-weight: 800;
+    }
+
+    .bite-strip {
+      padding: 16px 0;
+      overflow: hidden;
+      direction: ltr;
+      color: #101014;
+      background: var(--lime);
+      border-block: 3px solid #101014;
+      transform: rotate(-1.2deg) scale(1.03);
+      transform-origin: center;
+    }
+
+    .bite-strip .ticker-track {
+      --ticker-speed: 18s;
+      color: #101014;
+      padding: 0;
+    }
+
+    .bite-strip .ticker-track span::before {
+      background: var(--pink);
+      box-shadow: none;
+    }
+
+    .section {
+      padding: 72px 0;
+      position: relative;
+    }
+
+    .section.alt {
+      background: var(--soft);
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      margin-bottom: 0;
+      font-size: clamp(2rem, 4vw, 3.35rem);
+      line-height: 1;
+      font-weight: 1000;
+      letter-spacing: 0;
+    }
+
+    .section-note {
+      max-width: 520px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+      font-weight: 650;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .service-card,
+    .work-card,
+    .price-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 34px rgba(16, 16, 20, .08);
+    }
+
+    .service-card {
+      min-height: 188px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(225, 21, 131, .35);
+      box-shadow: var(--shadow);
+    }
+
+    .service-card:nth-child(odd) {
+      transform: rotate(-1deg);
+    }
+
+    .service-card:nth-child(even) {
+      transform: rotate(1deg);
+    }
+
+    .service-card:nth-child(odd):hover,
+    .service-card:nth-child(even):hover {
+      transform: translateY(-6px) rotate(0deg);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      color: #fff;
+      background: var(--pink);
+      font-size: 1.55rem;
+      font-weight: 1000;
+    }
+
+    .service-card:nth-child(2) .icon { background: var(--cyan); color: #061416; }
+    .service-card:nth-child(3) .icon { background: var(--violet); }
+    .service-card:nth-child(4) .icon { background: var(--yellow); color: #201500; }
+
+    .service-card h3 {
+      margin: 22px 0 8px;
+      font-size: 1.2rem;
+      line-height: 1.1;
+    }
+
+    .service-card p {
+      margin: 0;
+      color: var(--muted);
+      font-weight: 620;
+      line-height: 1.35;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 34px;
+      align-items: start;
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .work-card {
+      min-height: 180px;
+      overflow: hidden;
+      position: relative;
+      background:
+        radial-gradient(circle at 24% 28%, rgba(255,255,255,.9) 0 10%, transparent 11%),
+        radial-gradient(circle at 76% 68%, rgba(16,16,20,.9) 0 9%, transparent 10%),
+        linear-gradient(135deg, var(--pink), #ff79c7 42%, var(--yellow));
+    }
+
+    .work-card:nth-child(2) {
+      background:
+        radial-gradient(circle at 18% 72%, rgba(255,255,255,.9) 0 9%, transparent 10%),
+        radial-gradient(circle at 72% 22%, rgba(16,16,20,.9) 0 9%, transparent 10%),
+        linear-gradient(135deg, #201025, var(--cyan));
+    }
+
+    .work-card:nth-child(3) {
+      background:
+        radial-gradient(circle at 74% 24%, rgba(255,255,255,.9) 0 10%, transparent 11%),
+        radial-gradient(circle at 26% 70%, rgba(16,16,20,.9) 0 8%, transparent 9%),
+        linear-gradient(135deg, var(--violet), var(--pink-2));
+    }
+
+    .work-card::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 2px solid rgba(255,255,255,.74);
+      border-radius: var(--radius);
+    }
+
+    .play {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      transform: translate(-50%, -50%);
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      background: rgba(16,16,20,.55);
+      color: #fff;
+      font-weight: 1000;
+      box-shadow: 0 12px 30px rgba(0,0,0,.28);
+    }
+
+    .work-title {
+      position: absolute;
+      inset-inline: 18px;
+      bottom: 16px;
+      color: #fff;
+      font-weight: 950;
+      text-shadow: 0 2px 12px rgba(0,0,0,.44);
+    }
+
+    .about-panel {
+      padding: 32px;
+      border-radius: var(--radius);
+      color: #fff;
+      background:
+        linear-gradient(135deg, rgba(16,16,20,.92), rgba(16,16,20,.72)),
+        repeating-linear-gradient(45deg, rgba(225,21,131,.45) 0 12px, rgba(24,200,216,.28) 12px 24px);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-panel::after {
+      content: "";
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      left: -34px;
+      bottom: -42px;
+      background: url("assets/namer-mascot.png") center / contain no-repeat;
+      opacity: .28;
+      animation: mascotWobble 9s ease-in-out infinite;
+    }
+
+    .about-panel p {
+      color: rgba(255,255,255,.84);
+      font-size: 1.08rem;
+      font-weight: 650;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .chip {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.13);
+      color: #fff;
+      font-weight: 850;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .price-card {
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .price-card.featured {
+      border: 2px solid var(--ink);
+      box-shadow: 9px 9px 0 var(--ink);
+      transform: rotate(-1.2deg);
+    }
+
+    .badge {
+      display: inline-flex;
+      margin-bottom: 18px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #111;
+      color: #fff;
+      font-size: .85rem;
+      font-weight: 900;
+    }
+
+    .price-card.featured .badge { background: var(--pink); }
+
+    .price-card h3 {
+      margin-bottom: 14px;
+      font-size: 1.35rem;
+    }
+
+    .price {
+      margin-bottom: 20px;
+      font-size: 2.8rem;
+      line-height: 1;
+      font-weight: 1000;
+    }
+
+    .price small {
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .features {
+      display: grid;
+      gap: 10px;
+      margin: 0 0 24px;
+      padding: 0;
+      list-style: none;
+      color: #34343b;
+      font-weight: 700;
+    }
+
+    .features li::before {
+      content: "✓";
+      margin-inline-end: 9px;
+      color: var(--pink);
+      font-weight: 1000;
+    }
+
+    .contact {
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 82% 18%, rgba(200,255,61,.22), transparent 26%),
+        radial-gradient(circle at 18% 84%, rgba(24,200,216,.20), transparent 28%),
+        #101014;
+    }
+
+    .contact::after {
+      content: "";
+      position: absolute;
+      width: clamp(190px, 28vw, 360px);
+      height: clamp(190px, 28vw, 360px);
+      inset-inline-start: -70px;
+      bottom: -110px;
+      background: url("assets/namer-mascot.png") center / contain no-repeat;
+      opacity: .22;
+      animation: slowSpin 24s linear infinite;
+      pointer-events: none;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .contact h2 { color: #fff; }
+
+    .contact p {
+      color: rgba(255,255,255,.78);
+      font-size: 1.1rem;
+      font-weight: 650;
+    }
+
+    .contact-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      color: rgba(255,255,255,.78);
+      font-weight: 800;
+    }
+
+    label.full { grid-column: 1 / -1; }
+
+    input, textarea {
+      width: 100%;
+      min-height: 52px;
+      border: 2px solid rgba(255,255,255,.18);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      color: #fff;
+      background: rgba(255,255,255,.08);
+      outline: none;
+      font: inherit;
+    }
+
+    textarea { min-height: 118px; resize: vertical; }
+
+    input:focus, textarea:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 4px rgba(24,200,216,.14);
+    }
+
+    .form-actions {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .vat {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .site-footer {
+      padding: 28px 0;
+      color: rgba(255,255,255,.72);
+      background: #08080b;
+    }
+
+    .footer-inner {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-weight: 750;
+    }
+
+    .socials {
+      display: flex;
+      gap: 10px;
+    }
+
+    .socials span {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: #1b1b22;
+      font-weight: 950;
+    }
+
+    @keyframes mascotWobble {
+      0%, 100% { transform: rotate(-8deg) scale(1); }
+      50% { transform: rotate(7deg) scale(1.06); }
+    }
+
+    @keyframes orbitSpin {
+      0% { transform: translate3d(0, 0, 0) rotate(-10deg); }
+      35% { transform: translate3d(-18px, -22px, 0) rotate(10deg); }
+      70% { transform: translate3d(12px, 18px, 0) rotate(368deg); }
+      100% { transform: translate3d(0, 0, 0) rotate(710deg); }
+    }
+
+    @keyframes rudeFloat {
+      0%, 100% { transform: translateY(0) rotate(12deg); }
+      50% { transform: translateY(28px) rotate(-10deg); }
+    }
+
+    @keyframes slowSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes ticker {
+      to { transform: translateX(-25%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav { min-height: auto; padding: 18px 0; align-items: start; }
+      .nav-links { display: none; }
+      .hero::before {
+        background:
+          linear-gradient(180deg, rgba(10, 7, 14, .94) 0%, rgba(20, 7, 18, .78) 48%, rgba(20, 7, 18, .28) 100%),
+          url("assets/hero-social-brand.png") center / cover no-repeat;
+      }
+      .services-grid,
+      .pricing-grid,
+      .split,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .work-grid { grid-template-columns: repeat(3, minmax(160px, 1fr)); overflow-x: auto; padding-bottom: 8px; }
+      .section-head { display: grid; }
+      .mascot-hero { width: 170px; left: 12px; bottom: 20px; opacity: .86; }
+      .mascot-ghost { display: none; }
+    }
+
+    @media (max-width: 620px) {
+      .wrap,
+      .nav,
+      .hero-inner,
+      .footer-inner {
+        width: min(100% - 28px, 1120px);
+      }
+      .hero,
+      .hero-inner {
+        min-height: 650px;
+      }
+      h1 { font-size: 3.25rem; }
+      .section { padding: 54px 0; }
+      .contact-form { grid-template-columns: 1fr; }
+      .price-card.featured { box-shadow: 6px 6px 0 var(--ink); }
+      .btn { width: 100%; }
+      .hero-stat { width: 100%; padding-inline: 0 14px; }
+      .hero-content { padding-bottom: 120px; }
+      .bite-strip { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="ניווט ראשי">
+      <a class="brand" href="#top" aria-label="namer social">
+        <img class="brand-mark" src="assets/namer-mascot.png" alt="">
+        <span>namer social</span>
+      </a>
+      <div class="nav-links">
+        <a href="#services">שירותים</a>
+        <a href="#work">עבודות</a>
+        <a href="#pricing">מחירים</a>
+        <a href="#contact">יצירת קשר</a>
+      </div>
+      <a class="btn btn-primary" href="#contact">קביעת שיחת ייעוץ</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <video class="hero-video" autoplay muted loop playsinline poster="assets/hero-social-brand.png">
+        <source src="assets/namer-hero-test.mp4" type="video/mp4">
+      </video>
+      <div class="hero-kicker" aria-hidden="true">
+        <div class="ticker-track">
+          <div class="ticker-segment">
+            <span>סושיאל שלא מבקש רשות</span>
+            <span>רילז עם שיניים</span>
+            <span>קריאייטיב שמקפיץ תגובות</span>
+            <span>AI + קופי + עיצוב</span>
+            <span>מותג שלא נעלם בפיד</span>
+            <span>קופי חד</span>
+            <span>סושיאל עם שיניים</span>
+            <span>פיד שלא נרדם</span>
+          </div>
+          <div class="ticker-segment">
+            <span>סושיאל שלא מבקש רשות</span>
+            <span>רילז עם שיניים</span>
+            <span>קריאייטיב שמקפיץ תגובות</span>
+            <span>AI + קופי + עיצוב</span>
+            <span>מותג שלא נעלם בפיד</span>
+            <span>קופי חד</span>
+            <span>סושיאל עם שיניים</span>
+            <span>פיד שלא נרדם</span>
+          </div>
+          <div class="ticker-segment">
+            <span>סושיאל שלא מבקש רשות</span>
+            <span>רילז עם שיניים</span>
+            <span>קריאייטיב שמקפיץ תגובות</span>
+            <span>AI + קופי + עיצוב</span>
+            <span>מותג שלא נעלם בפיד</span>
+            <span>קופי חד</span>
+            <span>סושיאל עם שיניים</span>
+            <span>פיד שלא נרדם</span>
+          </div>
+          <div class="ticker-segment">
+            <span>סושיאל שלא מבקש רשות</span>
+            <span>רילז עם שיניים</span>
+            <span>קריאייטיב שמקפיץ תגובות</span>
+            <span>AI + קופי + עיצוב</span>
+            <span>מותג שלא נעלם בפיד</span>
+            <span>קופי חד</span>
+            <span>סושיאל עם שיניים</span>
+            <span>פיד שלא נרדם</span>
+          </div>
+        </div>
+      </div>
+      <img class="floating-mascot mascot-hero" src="assets/namer-mascot.png" alt="">
+      <img class="floating-mascot mascot-ghost" src="assets/namer-mascot.png" alt="">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <p class="eyebrow">namer social studio</p>
+          <h1 id="hero-title">סושיאל עם שיניים</h1>
+          <p class="hero-copy">אנחנו לא עושים “עוד פוסט”. אנחנו בונים נוכחות חדה, רעש נכון, רילז שמסתובבים בפיד ותוכן שמפסיק את הסקרול.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#pricing">תנו לי חבילה</a>
+            <a class="btn" href="#work">תראה לי רעש</a>
+            <span class="hero-stat">+200 תכנים בחודש, אפס נימוסים מיותרים</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bite-strip" aria-label="הצהרת מותג">
+      <div class="ticker-track">
+        <div class="ticker-segment">
+          <span>מותג שלא נעלם בפיד</span>
+          <span>קופי חד</span>
+          <span>עיצוב בועט</span>
+          <span>רילז שמזיזים אצבעות</span>
+          <span>סושיאל עם שיניים</span>
+          <span>לא עוד פוסט גנרי</span>
+          <span>קריאייטיב שמסתובב בראש</span>
+          <span>פוסטים עם אופי</span>
+        </div>
+        <div class="ticker-segment">
+          <span>מותג שלא נעלם בפיד</span>
+          <span>קופי חד</span>
+          <span>עיצוב בועט</span>
+          <span>רילז שמזיזים אצבעות</span>
+          <span>סושיאל עם שיניים</span>
+          <span>לא עוד פוסט גנרי</span>
+          <span>קריאייטיב שמסתובב בראש</span>
+          <span>פוסטים עם אופי</span>
+        </div>
+        <div class="ticker-segment">
+          <span>מותג שלא נעלם בפיד</span>
+          <span>קופי חד</span>
+          <span>עיצוב בועט</span>
+          <span>רילז שמזיזים אצבעות</span>
+          <span>סושיאל עם שיניים</span>
+          <span>לא עוד פוסט גנרי</span>
+          <span>קריאייטיב שמסתובב בראש</span>
+          <span>פוסטים עם אופי</span>
+        </div>
+        <div class="ticker-segment">
+          <span>מותג שלא נעלם בפיד</span>
+          <span>קופי חד</span>
+          <span>עיצוב בועט</span>
+          <span>רילז שמזיזים אצבעות</span>
+          <span>סושיאל עם שיניים</span>
+          <span>לא עוד פוסט גנרי</span>
+          <span>קריאייטיב שמסתובב בראש</span>
+          <span>פוסטים עם אופי</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>מה אנחנו עושים</h2>
+          <p class="section-note">מייצרים לעסק שלך קול, פרצוף וקצב. כזה שאנשים מזהים, זוכרים, ושולחים עליו הודעה.</p>
+        </div>
+        <div class="services-grid">
+          <article class="service-card">
+            <span class="icon" aria-hidden="true">▶</span>
+            <div>
+              <h3>פוסטים עם עקיצה</h3>
+              <p>פוסטים מושכים עם קופי ברור, תמונות איכותיות וקריאה לפעולה שמייצרת שיחה.</p>
+            </div>
+          </article>
+          <article class="service-card">
+            <span class="icon" aria-hidden="true">◎</span>
+            <div>
+              <h3>אינסטגרם שצועק</h3>
+              <p>קריאייטיבים ורילז קצרים שמושכים תשומת לב מהר ומרגישים מותאמים למותג.</p>
+            </div>
+          </article>
+          <article class="service-card">
+            <span class="icon" aria-hidden="true">in</span>
+            <div>
+              <h3>לינקדאין בלי חליפה</h3>
+              <p>תוכן מקצועי וממוקד לביסוס סמכות, אמון ומומחיות מול לקוחות עסקיים.</p>
+            </div>
+          </article>
+          <article class="service-card">
+            <span class="icon" aria-hidden="true">AI</span>
+            <div>
+              <h3>AI שמשרת מותג</h3>
+              <p>מאמרים קצרים וחכמים שמחזקים את האתר, מפחיתים נטישה ותומכים בקידום.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="work">
+      <div class="wrap split">
+        <div>
+          <div class="section-head">
+            <h2>דברים שזזים</h2>
+          </div>
+          <div class="work-grid" aria-label="דוגמאות עבודות">
+            <article class="work-card">
+              <span class="play" aria-hidden="true">▶</span>
+              <span class="work-title">רילז השקה</span>
+            </article>
+            <article class="work-card">
+              <span class="play" aria-hidden="true">▶</span>
+              <span class="work-title">פיד מותג</span>
+            </article>
+            <article class="work-card">
+              <span class="play" aria-hidden="true">▶</span>
+              <span class="work-title">קמפיין תוכן</span>
+            </article>
+          </div>
+        </div>
+        <aside class="about-panel" id="about">
+          <h2>קצת עלינו</h2>
+          <p>namer social הוא סטודיו סושיאל שמגיע לפיד עם ביטחון. אנחנו מערבבים כתיבה, עיצוב, וידאו קצר ו־AI כדי להפוך עסק רגיל למותג שאי אפשר לדפדף מעליו.</p>
+          <div class="chips" aria-label="תחומי התמחות">
+            <span class="chip">אסטרטגיית תוכן</span>
+            <span class="chip">ניהול פיד</span>
+            <span class="chip">רילז קצרים</span>
+            <span class="chip">AI Marketing</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>חבילות בלי בלבול</h2>
+          <p class="section-note">ברור, חד, בלי מצגת של 40 שקפים. בוחרים קצב, אנחנו דואגים שהפיד ייראה חי.</p>
+        </div>
+        <div class="pricing-grid">
+          <article class="price-card">
+            <span class="badge">חד פעמי</span>
+            <h3>הקמת פייסבוק ואינסטגרם</h3>
+            <div class="price">₪500 <small>/ חד פעמי</small></div>
+            <ul class="features">
+              <li>הקמת עמוד פייסבוק לעסק</li>
+              <li>הקמת עמוד אינסטגרם לעסק</li>
+              <li>לוגו, קאבר ופרטי עסק</li>
+            </ul>
+            <a class="btn" href="#contact">להתחלה מהירה</a>
+          </article>
+          <article class="price-card featured">
+            <span class="badge">הכי פופולרי</span>
+            <h3>חבילת Roar</h3>
+            <div class="price">₪600 <small>/ לחודש</small></div>
+            <ul class="features">
+              <li>2 פוסטים בשבוע</li>
+              <li>פרסום בפייסבוק ואינסטגרם</li>
+              <li>תמיכה במייל ובוואטסאפ</li>
+            </ul>
+            <a class="btn btn-primary" href="#contact">לקביעת שיחה</a>
+          </article>
+          <article class="price-card">
+            <span class="badge">לגדילה מהירה</span>
+            <h3>חבילת Wild</h3>
+            <div class="price">₪800 <small>/ לחודש</small></div>
+            <ul class="features">
+              <li>4 פוסטים בשבוע</li>
+              <li>פרסום בפייסבוק ואינסטגרם</li>
+              <li>תמיכה במייל, וואטסאפ וטלפון</li>
+            </ul>
+            <a class="btn" href="#contact">רוצה Large</a>
+          </article>
+        </div>
+        <p class="vat">* המחירים אינם כוללים מע"מ</p>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="wrap contact-grid">
+        <div>
+          <h2>יאללה, להפסיק להיראות כמו כולם</h2>
+          <p>השאירו פרטים ונחזור עם שיחת ייעוץ קצרה: מה כבר קיים, איפה הפיד נרדם, ואיך נותנים לו בוסט שנראה כמו מותג אמיתי.</p>
+          <p><strong>תל אביב, ישראל</strong><br>hello@namersocial.co.il<br>שירות לקוחות בווצאפ</p>
+        </div>
+        <form class="contact-form" action="#" method="post">
+          <label>
+            שם מלא
+            <input type="text" name="full-name" autocomplete="name" placeholder="שם מלא">
+          </label>
+          <label>
+            אימייל
+            <input type="email" name="email" autocomplete="email" placeholder="name@example.com">
+          </label>
+          <label>
+            טלפון
+            <input type="tel" name="phone" autocomplete="tel" placeholder="050-0000000">
+          </label>
+          <label>
+            שם העסק
+            <input type="text" name="business" placeholder="שם העסק">
+          </label>
+          <label class="full">
+            מה תרצו לקדם?
+            <textarea name="message" placeholder="ספרו בכמה מילים על העסק והעמודים שלכם"></textarea>
+          </label>
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">שליחה</button>
+            <span>מענה ראשוני עד יום עסקים אחד</span>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <strong>namer social</strong>
+      <span>© 2026 כל הזכויות שמורות</span>
+      <div class="socials" aria-label="רשתות חברתיות">
+        <span>f</span>
+        <span>◎</span>
+        <span>in</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
