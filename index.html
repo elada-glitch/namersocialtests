@@ -810,7 +810,12 @@
       .contact-grid {
         grid-template-columns: 1fr;
       }
-      .work-grid { grid-template-columns: repeat(3, minmax(160px, 1fr)); overflow-x: auto; padding-bottom: 8px; }
+      .work-grid {
+        grid-template-columns: 1fr;
+        overflow: visible;
+        padding-bottom: 0;
+      }
+      .work-card { min-height: 170px; }
       .section-head { display: grid; }
       .mascot-hero { width: 170px; left: 12px; bottom: 20px; opacity: .86; }
       .mascot-ghost { display: none; }
@@ -840,7 +845,15 @@
       .section { padding: 54px 0; }
       .contact-form { grid-template-columns: 1fr; }
       .price-card.featured { box-shadow: 6px 6px 0 var(--ink); }
-      .btn { width: 100%; }
+      .hero-actions .btn,
+      .contact-form .btn {
+        width: 100%;
+      }
+      .nav > .btn {
+        width: auto;
+        min-width: 150px;
+        padding-inline: 14px;
+      }
       .hero-stat { width: 100%; padding-inline: 0 14px; }
       .hero-content { padding-bottom: 120px; }
       .bite-strip { transform: none; }
