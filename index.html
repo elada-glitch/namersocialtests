@@ -36,7 +36,117 @@
       overflow-x: hidden;
     }
 
+    body.intro-locked {
+      overflow: hidden;
+    }
+
     a { color: inherit; text-decoration: none; }
+
+    .intro-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      min-height: 100svh;
+      padding: 28px;
+      color: #fff;
+      background:
+        radial-gradient(ellipse at 18% 18%, rgba(255,79,179,.55), transparent 26%),
+        radial-gradient(ellipse at 82% 78%, rgba(16,16,20,.72), transparent 32%),
+        repeating-radial-gradient(ellipse at 18% 22%, #101014 0 10px, transparent 11px 31px),
+        linear-gradient(135deg, #f0148a 0%, #b80e69 45%, #101014 100%);
+      transition: transform .75s cubic-bezier(.78, 0, .18, 1), opacity .45s ease;
+    }
+
+    .intro-gate::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .42;
+      background:
+        radial-gradient(ellipse 42px 26px at 12% 18%, #101014 0 48%, transparent 50%),
+        radial-gradient(ellipse 58px 34px at 30% 32%, #101014 0 48%, transparent 50%),
+        radial-gradient(ellipse 46px 30px at 52% 16%, #101014 0 48%, transparent 50%),
+        radial-gradient(ellipse 62px 38px at 76% 30%, #101014 0 48%, transparent 50%),
+        radial-gradient(ellipse 48px 30px at 88% 68%, #101014 0 48%, transparent 50%),
+        radial-gradient(ellipse 60px 36px at 22% 76%, #101014 0 48%, transparent 50%),
+        radial-gradient(ellipse 46px 28px at 58% 84%, #101014 0 48%, transparent 50%);
+      background-size: 260px 220px;
+      transform: rotate(-8deg) scale(1.15);
+    }
+
+    .intro-gate::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(16,16,20,.84), transparent 34%, transparent 66%, rgba(16,16,20,.78));
+      pointer-events: none;
+    }
+
+    .intro-gate.is-hidden {
+      opacity: 0;
+      transform: translateY(-100%);
+      pointer-events: none;
+    }
+
+    .intro-card {
+      position: relative;
+      z-index: 1;
+      width: min(680px, 100%);
+      display: grid;
+      justify-items: center;
+      gap: 22px;
+      text-align: center;
+    }
+
+    .intro-logo {
+      width: clamp(118px, 18vw, 180px);
+      filter: drop-shadow(12px 12px 0 rgba(16,16,20,.65));
+      transform: rotate(-6deg);
+    }
+
+    .intro-title {
+      margin: 0;
+      font-size: clamp(2.65rem, 8vw, 6.4rem);
+      line-height: .86;
+      font-weight: 1000;
+      text-shadow: 7px 7px 0 rgba(16,16,20,.72);
+    }
+
+    .intro-copy {
+      max-width: 520px;
+      margin: 0;
+      color: rgba(255,255,255,.86);
+      font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .intro-button {
+      min-height: 58px;
+      padding: 0 30px;
+      border-radius: var(--radius);
+      border: 2px solid #fff;
+      color: #101014;
+      background: var(--lime);
+      box-shadow: 7px 7px 0 #101014;
+      font: inherit;
+      font-weight: 1000;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .intro-button:hover {
+      transform: translate(4px, 4px);
+      box-shadow: 3px 3px 0 #101014;
+    }
+
+    .intro-skip {
+      color: rgba(255,255,255,.74);
+      font-size: .9rem;
+      font-weight: 800;
+    }
 
     .scroll-progress {
       position: fixed;
@@ -734,7 +844,7 @@
       position: absolute;
       width: clamp(280px, 30vw, 470px);
       left: 50%;
-      top: calc(-1 * clamp(142px, 11.8vw, 186px));
+      top: calc(-1 * clamp(118px, 9.4vw, 154px));
       transform: translateX(-50%);
       filter: drop-shadow(6px 8px 0 rgba(0,0,0,.18));
       pointer-events: none;
@@ -936,7 +1046,7 @@
       }
       .contact-mascot {
         width: 280px;
-        top: -126px;
+        top: -98px;
       }
     }
 
@@ -976,13 +1086,22 @@
       .contact-mascot {
         display: block;
         width: 230px;
-        top: -84px;
+        top: -58px;
         filter: drop-shadow(4px 6px 0 rgba(0,0,0,.18));
       }
     }
   </style>
 </head>
-<body>
+<body class="intro-locked">
+  <section class="intro-gate" data-intro-gate aria-label="מסך פתיחה">
+    <div class="intro-card">
+      <img class="intro-logo" src="assets/namer-mascot.png" alt="">
+      <h2 class="intro-title">namer social</h2>
+      <p class="intro-copy">הפיד שלך לא צריך עוד פוסט. הוא צריך אופי, קצב ושיניים.</p>
+      <button class="intro-button" type="button" data-intro-enter autofocus>לדרך שלך לרשתות</button>
+      <span class="intro-skip">לחיצה אחת והמסך נפתח</span>
+    </div>
+  </section>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header">
     <nav class="nav" aria-label="ניווט ראשי">
@@ -1277,7 +1396,23 @@
   </footer>
   <script>
     (() => {
+      const introGate = document.querySelector("[data-intro-gate]");
+      const introEnter = document.querySelector("[data-intro-enter]");
       const progress = document.querySelector(".scroll-progress");
+
+      const closeIntro = () => {
+        if (!introGate) return;
+        introGate.classList.add("is-hidden");
+        document.body.classList.remove("intro-locked");
+        setTimeout(() => introGate.remove(), 800);
+      };
+
+      if (introGate) {
+        introEnter?.addEventListener("click", closeIntro);
+        introGate.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") closeIntro();
+        });
+      }
 
       const updateProgress = () => {
         const max = document.documentElement.scrollHeight - window.innerHeight;
