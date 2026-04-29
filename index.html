@@ -122,68 +122,42 @@
       line-height: 1.25;
     }
 
-    .intro-slider {
-      --slide-progress: 0px;
+    .intro-button {
       position: relative;
-      width: min(410px, 100%);
       min-height: 58px;
-      padding: 0 76px 0 28px;
+      padding: 0 30px;
       border-radius: var(--radius);
-      border: 2px solid #fff;
+      border: 2px solid rgba(255,255,255,.96);
       color: #101014;
-      background: var(--lime);
+      background:
+        linear-gradient(135deg, #e6ff69 0%, var(--lime) 48%, #b8ff18 100%);
       box-shadow: 7px 7px 0 #101014;
       font: inherit;
+      font-size: 1.05rem;
       font-weight: 1000;
       cursor: pointer;
-      direction: rtl;
       overflow: hidden;
-      user-select: none;
-      touch-action: none;
       transition: box-shadow .18s ease, transform .18s ease;
     }
 
-    .intro-slider:hover {
+    .intro-button:hover {
       transform: translate(4px, 4px);
       box-shadow: 3px 3px 0 #101014;
     }
 
-    .intro-slider::before {
+    .intro-button::before {
       content: "";
       position: absolute;
-      inset: 0 0 0 auto;
-      width: calc(var(--slide-progress) + 58px);
-      max-width: 100%;
-      background: rgba(255,255,255,.38);
+      inset: 0;
+      background: linear-gradient(90deg, rgba(255,255,255,.14), rgba(255,255,255,.58));
+      opacity: .44;
       pointer-events: none;
     }
 
-    .intro-slide-label {
+    .intro-button span {
       position: relative;
       z-index: 1;
-      display: block;
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    .intro-slide-thumb {
-      position: absolute;
-      inset-block: 6px;
-      right: 6px;
-      z-index: 2;
-      width: 46px;
-      display: grid;
-      place-items: center;
-      border-radius: 6px;
-      color: #fff;
-      background: #101014;
-      transform: translateX(calc(-1 * var(--slide-progress)));
-      transition: transform .12s ease;
-      pointer-events: none;
-    }
-
-    .intro-slider.is-dragging .intro-slide-thumb {
-      transition: none;
+      text-shadow: 0 1px 0 rgba(255,255,255,.72);
     }
 
     .intro-skip {
@@ -1142,11 +1116,8 @@
       <img class="intro-logo" src="assets/namer-mascot.png" alt="">
       <h2 class="intro-title">namer social</h2>
       <p class="intro-copy">הפיד שלך לא צריך עוד פוסט. הוא צריך אופי, קצב ושיניים.</p>
-      <div class="intro-slider" data-intro-slider role="button" tabindex="0" aria-label="החלק שמאלה לדרך שלך לרשתות">
-        <span class="intro-slide-label">החלק שמאלה</span>
-        <span class="intro-slide-thumb" aria-hidden="true">←</span>
-      </div>
-      <span class="intro-skip">לדרך שלך לרשתות</span>
+      <button class="intro-button" type="button" data-intro-enter autofocus><span>לדרך שלך לרשתות</span></button>
+      <span class="intro-skip">לחיצה אחת והמסך נפתח</span>
     </div>
   </section>
   <div class="scroll-progress" aria-hidden="true"></div>
@@ -1444,7 +1415,7 @@
   <script>
     (() => {
       const introGate = document.querySelector("[data-intro-gate]");
-      const introSlider = document.querySelector("[data-intro-slider]");
+      const introEnter = document.querySelector("[data-intro-enter]");
       const progress = document.querySelector(".scroll-progress");
 
       const closeIntro = () => {
@@ -1455,50 +1426,7 @@
       };
 
       if (introGate) {
-        let startX = 0;
-        let dragging = false;
-        let maxSlide = 0;
-
-        const setSlide = (value) => {
-          introSlider?.style.setProperty("--slide-progress", `${Math.max(0, Math.min(value, maxSlide))}px`);
-        };
-
-        const resetSlide = () => {
-          introSlider?.classList.remove("is-dragging");
-          setSlide(0);
-        };
-
-        introSlider?.addEventListener("pointerdown", (event) => {
-          const rect = introSlider.getBoundingClientRect();
-          startX = event.clientX;
-          maxSlide = Math.max(0, rect.width - 58);
-          dragging = true;
-          introSlider.classList.add("is-dragging");
-          introSlider.setPointerCapture(event.pointerId);
-        });
-
-        introSlider?.addEventListener("pointermove", (event) => {
-          if (!dragging) return;
-          setSlide(startX - event.clientX);
-        });
-
-        introSlider?.addEventListener("pointerup", (event) => {
-          if (!dragging) return;
-          dragging = false;
-          const slide = Math.max(0, Math.min(startX - event.clientX, maxSlide));
-          if (slide >= maxSlide * .72) {
-            setSlide(maxSlide);
-            closeIntro();
-          } else {
-            resetSlide();
-          }
-        });
-
-        introSlider?.addEventListener("pointercancel", () => {
-          dragging = false;
-          resetSlide();
-        });
-
+        introEnter?.addEventListener("click", closeIntro);
         introGate.addEventListener("keydown", (event) => {
           if (event.key === "Escape" || event.key === "Enter" || event.key === " ") closeIntro();
         });
