@@ -43,6 +43,18 @@
     a { color: inherit; text-decoration: none; }
 
     .intro-gate {
+      --intro-pattern:
+        radial-gradient(ellipse 54px 34px at 13% 16%, #050506 0 48%, transparent 50%),
+        radial-gradient(ellipse 34px 22px at 25% 10%, #050506 0 48%, transparent 50%),
+        radial-gradient(ellipse 64px 38px at 34% 34%, #050506 0 48%, transparent 50%),
+        radial-gradient(ellipse 42px 28px at 58% 18%, #050506 0 48%, transparent 50%),
+        radial-gradient(ellipse 58px 36px at 74% 38%, #050506 0 48%, transparent 50%),
+        radial-gradient(ellipse 36px 24px at 88% 20%, #050506 0 48%, transparent 50%),
+        radial-gradient(ellipse 66px 38px at 15% 62%, #050506 0 48%, transparent 50%),
+        radial-gradient(ellipse 38px 24px at 47% 66%, #050506 0 48%, transparent 50%),
+        radial-gradient(ellipse 56px 34px at 68% 78%, #050506 0 48%, transparent 50%),
+        radial-gradient(ellipse 42px 26px at 92% 70%, #050506 0 48%, transparent 50%),
+        linear-gradient(135deg, #f71190 0%, #e70d83 54%, #c80973 100%);
       position: fixed;
       inset: 0;
       z-index: 100;
@@ -51,53 +63,79 @@
       min-height: 100svh;
       padding: 28px;
       color: #fff;
-      background:
-        radial-gradient(ellipse at 18% 18%, rgba(255,79,179,.55), transparent 26%),
-        radial-gradient(ellipse at 82% 78%, rgba(16,16,20,.72), transparent 32%),
-        repeating-radial-gradient(ellipse at 18% 22%, #101014 0 10px, transparent 11px 31px),
-        linear-gradient(135deg, #f0148a 0%, #b80e69 45%, #101014 100%);
-      transition: transform .75s cubic-bezier(.78, 0, .18, 1), opacity .45s ease;
+      background: #e70d83;
+      overflow: hidden;
     }
 
     .intro-gate::before {
       content: "";
       position: absolute;
       inset: 0;
-      opacity: .42;
-      background:
-        radial-gradient(ellipse 42px 26px at 12% 18%, #101014 0 48%, transparent 50%),
-        radial-gradient(ellipse 58px 34px at 30% 32%, #101014 0 48%, transparent 50%),
-        radial-gradient(ellipse 46px 30px at 52% 16%, #101014 0 48%, transparent 50%),
-        radial-gradient(ellipse 62px 38px at 76% 30%, #101014 0 48%, transparent 50%),
-        radial-gradient(ellipse 48px 30px at 88% 68%, #101014 0 48%, transparent 50%),
-        radial-gradient(ellipse 60px 36px at 22% 76%, #101014 0 48%, transparent 50%),
-        radial-gradient(ellipse 46px 28px at 58% 84%, #101014 0 48%, transparent 50%);
-      background-size: 260px 220px;
-      transform: rotate(-8deg) scale(1.15);
+      z-index: 2;
+      opacity: .18;
+      background: linear-gradient(90deg, rgba(16,16,20,.88), transparent 30%, transparent 70%, rgba(16,16,20,.78));
+      pointer-events: none;
     }
 
     .intro-gate::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg, rgba(16,16,20,.84), transparent 34%, transparent 66%, rgba(16,16,20,.78));
+      z-index: 1;
+      background:
+        radial-gradient(circle at 42% 48%, rgba(255,255,255,.16), transparent 24%),
+        linear-gradient(120deg, transparent, rgba(16,16,20,.16));
       pointer-events: none;
     }
 
     .intro-gate.is-hidden {
-      opacity: 0;
-      transform: translateY(-100%);
       pointer-events: none;
+    }
+
+    .intro-tear {
+      position: absolute;
+      inset-block: 0;
+      width: 55%;
+      z-index: 0;
+      background-image: var(--intro-pattern);
+      background-size: 310px 250px, 270px 230px, 340px 280px, 290px 240px, 330px 270px, 250px 220px, 360px 290px, 280px 240px, 340px 280px, 270px 230px, 100% 100%;
+      transition: transform .86s cubic-bezier(.8, 0, .16, 1);
+      will-change: transform;
+    }
+
+    .intro-tear-left {
+      right: 0;
+      clip-path: polygon(0 0, 100% 0, 100% 12%, 96% 18%, 100% 27%, 94% 38%, 100% 50%, 95% 61%, 100% 73%, 96% 84%, 100% 100%, 0 100%);
+    }
+
+    .intro-tear-right {
+      left: 0;
+      background-position: 120px 30px, 60px 90px, 160px 140px, 40px 190px, 110px 10px, 20px 40px, 90px 160px, 150px 80px, 30px 130px, 210px 220px, center;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 87%, 5% 78%, 0 66%, 6% 55%, 0 43%, 4% 32%, 0 20%, 6% 11%);
+    }
+
+    .intro-gate.is-hidden .intro-tear-left {
+      transform: translateX(108%) rotate(2.4deg);
+    }
+
+    .intro-gate.is-hidden .intro-tear-right {
+      transform: translateX(-108%) rotate(-2.4deg);
+    }
+
+    .intro-gate.is-hidden .intro-card {
+      opacity: 0;
+      transform: scale(.96);
     }
 
     .intro-card {
       position: relative;
-      z-index: 1;
+      z-index: 3;
       width: min(680px, 100%);
       display: grid;
       justify-items: center;
       gap: 22px;
       text-align: center;
+      transition: opacity .18s ease, transform .18s ease;
     }
 
     .intro-logo {
@@ -1094,6 +1132,8 @@
 </head>
 <body class="intro-locked">
   <section class="intro-gate" data-intro-gate aria-label="מסך פתיחה">
+    <span class="intro-tear intro-tear-left" aria-hidden="true"></span>
+    <span class="intro-tear intro-tear-right" aria-hidden="true"></span>
     <div class="intro-card">
       <img class="intro-logo" src="assets/namer-mascot.png" alt="">
       <h2 class="intro-title">namer social</h2>
