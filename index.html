@@ -43,18 +43,6 @@
     a { color: inherit; text-decoration: none; }
 
     .intro-gate {
-      --intro-pattern:
-        radial-gradient(ellipse 54px 34px at 13% 16%, #050506 0 48%, transparent 50%),
-        radial-gradient(ellipse 34px 22px at 25% 10%, #050506 0 48%, transparent 50%),
-        radial-gradient(ellipse 64px 38px at 34% 34%, #050506 0 48%, transparent 50%),
-        radial-gradient(ellipse 42px 28px at 58% 18%, #050506 0 48%, transparent 50%),
-        radial-gradient(ellipse 58px 36px at 74% 38%, #050506 0 48%, transparent 50%),
-        radial-gradient(ellipse 36px 24px at 88% 20%, #050506 0 48%, transparent 50%),
-        radial-gradient(ellipse 66px 38px at 15% 62%, #050506 0 48%, transparent 50%),
-        radial-gradient(ellipse 38px 24px at 47% 66%, #050506 0 48%, transparent 50%),
-        radial-gradient(ellipse 56px 34px at 68% 78%, #050506 0 48%, transparent 50%),
-        radial-gradient(ellipse 42px 26px at 92% 70%, #050506 0 48%, transparent 50%),
-        linear-gradient(135deg, #f71190 0%, #e70d83 54%, #c80973 100%);
       position: fixed;
       inset: 0;
       z-index: 100;
@@ -63,8 +51,9 @@
       min-height: 100svh;
       padding: 28px;
       color: #fff;
-      background: #e70d83;
+      background: #e70d83 url("assets/intro-leopard-bg.png") center / cover no-repeat;
       overflow: hidden;
+      transition: opacity .52s ease, visibility .52s ease;
     }
 
     .intro-gate::before {
@@ -72,8 +61,8 @@
       position: absolute;
       inset: 0;
       z-index: 2;
-      opacity: .18;
-      background: linear-gradient(90deg, rgba(16,16,20,.88), transparent 30%, transparent 70%, rgba(16,16,20,.78));
+      opacity: .2;
+      background: linear-gradient(90deg, rgba(16,16,20,.84), transparent 34%, transparent 66%, rgba(16,16,20,.74));
       pointer-events: none;
     }
 
@@ -89,37 +78,9 @@
     }
 
     .intro-gate.is-hidden {
+      opacity: 0;
+      visibility: hidden;
       pointer-events: none;
-    }
-
-    .intro-tear {
-      position: absolute;
-      inset-block: 0;
-      width: 55%;
-      z-index: 0;
-      background-image: var(--intro-pattern);
-      background-size: 310px 250px, 270px 230px, 340px 280px, 290px 240px, 330px 270px, 250px 220px, 360px 290px, 280px 240px, 340px 280px, 270px 230px, 100% 100%;
-      transition: transform .86s cubic-bezier(.8, 0, .16, 1);
-      will-change: transform;
-    }
-
-    .intro-tear-left {
-      right: 0;
-      clip-path: polygon(0 0, 100% 0, 100% 12%, 96% 18%, 100% 27%, 94% 38%, 100% 50%, 95% 61%, 100% 73%, 96% 84%, 100% 100%, 0 100%);
-    }
-
-    .intro-tear-right {
-      left: 0;
-      background-position: 120px 30px, 60px 90px, 160px 140px, 40px 190px, 110px 10px, 20px 40px, 90px 160px, 150px 80px, 30px 130px, 210px 220px, center;
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 87%, 5% 78%, 0 66%, 6% 55%, 0 43%, 4% 32%, 0 20%, 6% 11%);
-    }
-
-    .intro-gate.is-hidden .intro-tear-left {
-      transform: translateX(108%) rotate(2.4deg);
-    }
-
-    .intro-gate.is-hidden .intro-tear-right {
-      transform: translateX(-108%) rotate(-2.4deg);
     }
 
     .intro-gate.is-hidden .intro-card {
@@ -161,9 +122,12 @@
       line-height: 1.25;
     }
 
-    .intro-button {
+    .intro-slider {
+      --slide-progress: 0px;
+      position: relative;
+      width: min(410px, 100%);
       min-height: 58px;
-      padding: 0 30px;
+      padding: 0 76px 0 28px;
       border-radius: var(--radius);
       border: 2px solid #fff;
       color: #101014;
@@ -172,12 +136,54 @@
       font: inherit;
       font-weight: 1000;
       cursor: pointer;
-      transition: transform .18s ease, box-shadow .18s ease;
+      direction: rtl;
+      overflow: hidden;
+      user-select: none;
+      touch-action: none;
+      transition: box-shadow .18s ease, transform .18s ease;
     }
 
-    .intro-button:hover {
+    .intro-slider:hover {
       transform: translate(4px, 4px);
       box-shadow: 3px 3px 0 #101014;
+    }
+
+    .intro-slider::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 0 auto;
+      width: calc(var(--slide-progress) + 58px);
+      max-width: 100%;
+      background: rgba(255,255,255,.38);
+      pointer-events: none;
+    }
+
+    .intro-slide-label {
+      position: relative;
+      z-index: 1;
+      display: block;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .intro-slide-thumb {
+      position: absolute;
+      inset-block: 6px;
+      right: 6px;
+      z-index: 2;
+      width: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 6px;
+      color: #fff;
+      background: #101014;
+      transform: translateX(calc(-1 * var(--slide-progress)));
+      transition: transform .12s ease;
+      pointer-events: none;
+    }
+
+    .intro-slider.is-dragging .intro-slide-thumb {
+      transition: none;
     }
 
     .intro-skip {
@@ -1132,14 +1138,15 @@
 </head>
 <body class="intro-locked">
   <section class="intro-gate" data-intro-gate aria-label="מסך פתיחה">
-    <span class="intro-tear intro-tear-left" aria-hidden="true"></span>
-    <span class="intro-tear intro-tear-right" aria-hidden="true"></span>
     <div class="intro-card">
       <img class="intro-logo" src="assets/namer-mascot.png" alt="">
       <h2 class="intro-title">namer social</h2>
       <p class="intro-copy">הפיד שלך לא צריך עוד פוסט. הוא צריך אופי, קצב ושיניים.</p>
-      <button class="intro-button" type="button" data-intro-enter autofocus>לדרך שלך לרשתות</button>
-      <span class="intro-skip">לחיצה אחת והמסך נפתח</span>
+      <div class="intro-slider" data-intro-slider role="button" tabindex="0" aria-label="החלק שמאלה לדרך שלך לרשתות">
+        <span class="intro-slide-label">החלק שמאלה</span>
+        <span class="intro-slide-thumb" aria-hidden="true">←</span>
+      </div>
+      <span class="intro-skip">לדרך שלך לרשתות</span>
     </div>
   </section>
   <div class="scroll-progress" aria-hidden="true"></div>
@@ -1437,7 +1444,7 @@
   <script>
     (() => {
       const introGate = document.querySelector("[data-intro-gate]");
-      const introEnter = document.querySelector("[data-intro-enter]");
+      const introSlider = document.querySelector("[data-intro-slider]");
       const progress = document.querySelector(".scroll-progress");
 
       const closeIntro = () => {
@@ -1448,9 +1455,52 @@
       };
 
       if (introGate) {
-        introEnter?.addEventListener("click", closeIntro);
+        let startX = 0;
+        let dragging = false;
+        let maxSlide = 0;
+
+        const setSlide = (value) => {
+          introSlider?.style.setProperty("--slide-progress", `${Math.max(0, Math.min(value, maxSlide))}px`);
+        };
+
+        const resetSlide = () => {
+          introSlider?.classList.remove("is-dragging");
+          setSlide(0);
+        };
+
+        introSlider?.addEventListener("pointerdown", (event) => {
+          const rect = introSlider.getBoundingClientRect();
+          startX = event.clientX;
+          maxSlide = Math.max(0, rect.width - 58);
+          dragging = true;
+          introSlider.classList.add("is-dragging");
+          introSlider.setPointerCapture(event.pointerId);
+        });
+
+        introSlider?.addEventListener("pointermove", (event) => {
+          if (!dragging) return;
+          setSlide(startX - event.clientX);
+        });
+
+        introSlider?.addEventListener("pointerup", (event) => {
+          if (!dragging) return;
+          dragging = false;
+          const slide = Math.max(0, Math.min(startX - event.clientX, maxSlide));
+          if (slide >= maxSlide * .72) {
+            setSlide(maxSlide);
+            closeIntro();
+          } else {
+            resetSlide();
+          }
+        });
+
+        introSlider?.addEventListener("pointercancel", () => {
+          dragging = false;
+          resetSlide();
+        });
+
         introGate.addEventListener("keydown", (event) => {
-          if (event.key === "Escape") closeIntro();
+          if (event.key === "Escape" || event.key === "Enter" || event.key === " ") closeIntro();
         });
       }
 
